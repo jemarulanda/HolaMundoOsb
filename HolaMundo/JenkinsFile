@@ -6,14 +6,14 @@ pipeline {
     stages {        
         stage('Checkout') {
             steps {
-                checkout scm
+					checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/jemarulanda/HolaMundoOsb.git']]])
             }            
         }
         stage ('Deploy for testing') {
             steps {
 			dir("HolaMundo"){
                 bat'''																																									
-                mvn pre-integration-test -DoracleServerUrl=\"http://localhost:7101\" -DoracleUsername=\"weblogic\" -DoraclePassword=\"weblogic\" -DoracleHome=\"C:\\Oracle\\Middleware\\Oracle_Home\"
+                mvn pre-integration-test -DoracleServerUrl=\"http://localhost:7101" -DoracleUsername=\"weblogic\" -DoraclePassword=\"weblogic\" -DoracleHome=\"C:\\Oracle\\Middleware\\Oracle_Home\"
                 '''}
                 }
         }
